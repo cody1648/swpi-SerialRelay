@@ -1,2 +1,3 @@
 import serial
 
+print('test.')
