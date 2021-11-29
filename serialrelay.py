@@ -13,7 +13,7 @@ class SerialRelay:
                 bytesize=serial.EIGHTBITS,
                 parity=serial.PARITY_NONE,
                 stopbits=serial.STOPBITS_ONE,
-                timeout=None
+                timeout=1
             )
             # GPIOシリアル(LORAモジュール側)
             self.port2 = serial.Serial(
@@ -22,7 +22,7 @@ class SerialRelay:
                 bytesize=serial.EIGHTBITS,
                 parity=serial.PARITY_NONE,
                 stopbits=serial.STOPBITS_ONE,
-                timeout=None
+                timeout=1
             )
 
             self.port1.reset_input_buffer()
