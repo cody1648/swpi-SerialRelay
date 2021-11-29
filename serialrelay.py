@@ -39,7 +39,7 @@ class SerialRelay:
         try:
             self.port1.write(b'\r')
             while True:
-                # print(self.port1.read_line ())
+                print(self.port1.read_line ())
                 time.sleep(1)
         except Exception as e:
             print(e)
