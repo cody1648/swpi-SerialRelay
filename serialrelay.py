@@ -39,6 +39,7 @@ class SerialRelay:
         try:
             while True:
                 str = self.port1.readline()
+                print('1->2:' + str.decode())
                 self.port2.write(str)
         except Exception as e:
             print(e)
@@ -47,6 +48,7 @@ class SerialRelay:
         try:
             while True:
                 str = self.port2.readline()
+                print('2->1:'+ str.decode())
                 self.port1.write(str)
         except Exception as e:
             print(e)
@@ -55,7 +57,7 @@ class SerialRelay:
     def write(self):
         while True:
             self.port1.write(b'\r')
-            time.sleep(3)
+            time.sleep(5)
 
 
 
@@ -65,5 +67,7 @@ if __name__ == '__main__':
     # USB<->GPIOどちらも受信待機できるようにスレッドを用いる
     t1 = threading.Thread(target=sr.relay1to2)
     t2 = threading.Thread(target=sr.relay2to1)
+    t3 = threading.Thread(target=sr.write)
     t1.start()
     t2.start()
+    t3.start()
