@@ -1,3 +1,4 @@
+# coding: UTF-8
 import serial
 import threading
 import time
