@@ -17,7 +17,7 @@ class SerialRelay:
             )
             # GPIOシリアル(LORAモジュール側)
             self.port2 = serial.Serial(
-                port='/dev/ttyS0',
+                port='/dev/serial0',
                 baudrate=9600,
                 bytesize=serial.EIGHTBITS,
                 parity=serial.PARITY_NONE,
