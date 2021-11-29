@@ -24,7 +24,7 @@ class SerialRelay:
                 stopbits=serial.STOPBITS_ONE,
                 timeout=None
             )
-
+            # 入出力バッファクリア
             self.port1.reset_input_buffer()
             self.port1.reset_output_buffer()
             self.port2.reset_input_buffer()
@@ -34,15 +34,23 @@ class SerialRelay:
         except Exception as e:
             print(e)
 
-
+    # USBシリアル->GPIOシリアル
     def relay1to2(self):
         try:
             while True:
                 str = self.port1.readline()
                 self.port2.write(str)
-                print(str)
         except Exception as e:
             print(e)
+    # GPIOシリア->USBシリアル
+    def relay2to1(self):
+        try:
+            while True:
+                str = self.port2.readline()
+                self.port1.write(str)
+        except Exception as e:
+            print(e)
+
 
     def write(self):
         while True:
@@ -54,7 +62,8 @@ class SerialRelay:
 
 if __name__ == '__main__':
     sr = SerialRelay()
+    # USB<->GPIOどちらも受信待機できるようにスレッドを用いる
     t1 = threading.Thread(target=sr.relay1to2)
-    t2 = threading.Thread(target=sr.write)
+    t2 = threading.Thread(target=sr.relay2to1)
     t1.start()
     t2.start()
