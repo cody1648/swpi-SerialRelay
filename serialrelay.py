@@ -38,7 +38,9 @@ class SerialRelay:
     def relay1to2(self):
         try:
             while True:
-                self.port2.write(self.port1.readline())
+                str = self.port1.readline()
+                self.port2.write(str)
+                print(str)
         except Exception as e:
             print(e)
 
