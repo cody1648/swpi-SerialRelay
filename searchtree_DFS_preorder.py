@@ -1,3 +1,4 @@
+# coding: UTF-8
 from anytree import exporter
 import serial
 import time
