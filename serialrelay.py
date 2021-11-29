@@ -33,10 +33,7 @@ class SerialRelay:
 
         except Exception as e:
             print(e)
-        
-        finally:
-            self.port1.close()
-            self.port2.close()
+
 
     def relay1to2(self):
         try:
