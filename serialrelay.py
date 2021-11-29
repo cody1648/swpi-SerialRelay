@@ -40,11 +40,10 @@ class SerialRelay:
 
     def relay1to2(self):
         try:
-            i = 1
+            self.port1.write(b'\r')
             while True:
-                print(f'test+{i}')
+                print(self.port1.read_line())
                 time.sleep(1)
-                i += 1
         except Exception as e:
             print(e)
 
