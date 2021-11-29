@@ -13,7 +13,7 @@ class SerialRelay:
                 bytesize=serial.EIGHTBITS,
                 parity=serial.PARITY_NONE,
                 stopbits=serial.STOPBITS_ONE,
-                timeout=1
+                timeout=None
             )
             # GPIOシリアル(LORAモジュール側)
             self.port2 = serial.Serial(
@@ -22,7 +22,7 @@ class SerialRelay:
                 bytesize=serial.EIGHTBITS,
                 parity=serial.PARITY_NONE,
                 stopbits=serial.STOPBITS_ONE,
-                timeout=1
+                timeout=None
             )
 
             self.port1.reset_input_buffer()
@@ -38,7 +38,7 @@ class SerialRelay:
     def relay1to2(self):
         try:
             while True:
-                print(self.port1.readline())
+                self.port2.write(self.port1.readline())
         except Exception as e:
             print(e)
 
