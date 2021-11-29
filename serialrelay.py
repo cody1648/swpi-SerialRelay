@@ -37,17 +37,22 @@ class SerialRelay:
 
     def relay1to2(self):
         try:
-            self.port1.write(b'\r')
             while True:
-                print(self.port1.read_line ())
-                time.sleep(1)
+                print(self.port1.read_line())
         except Exception as e:
             print(e)
+
+    def write(self):
+        while True:
+            self.port1.write(b'\r')
+            time.sleep(3)
 
 
 
 
 if __name__ == '__main__':
     sr = SerialRelay()
-    thread = threading.Thread(target=sr.relay1to2)
-    thread.start()
+    t1 = threading.Thread(target=sr.relay1to2)
+    t2 = threading.Thread(target=sr.write)
+    t1.start()
+    t2.start()
