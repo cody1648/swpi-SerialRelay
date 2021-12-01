@@ -43,7 +43,7 @@ class SerialRelay:
                 self.port2.write(str)
         except Exception as e:
             print(e)
-    # GPIOシリア->USBシリアル
+    # GPIOシリアル->USBシリアル
     def relay2to1(self):
         try:
             while True:
@@ -58,8 +58,6 @@ class SerialRelay:
         while True:
             self.port1.write(b'\r')
             time.sleep(5)
-
-
 
 
 if __name__ == '__main__':
