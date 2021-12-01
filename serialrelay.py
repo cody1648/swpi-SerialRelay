@@ -56,7 +56,7 @@ class SerialRelay:
             while True:
                 str = self.port2.readline()
                 print('2->1:'+ str.decode())
-                self.port1.write(str)
+                self.port1.write(str+b'\r')
         except Exception as e:
             print(e)
 
