@@ -2,7 +2,14 @@
 import serial
 import threading
 import time
+import sys
 
+# コマンドラインでフラグ指定
+flag = False
+args = sys.argv
+if len(args) > 1 and args[1] == 1:
+    flag = True
+    
 class SerialRelay:
     def __init__(self):
         try:
@@ -68,4 +75,6 @@ if __name__ == '__main__':
     t3 = threading.Thread(target=sr.write)
     t1.start()
     t2.start()
-    t3.start()
+    # コマンドで1が入力されたら定期的にSWに改行が送られる
+    if flag:
+        t3.start()
