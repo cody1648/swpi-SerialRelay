@@ -15,9 +15,9 @@ class SerialRelay:
                 stopbits=serial.STOPBITS_ONE,
                 timeout=None
             )
-            # GPIOシリアル(LORAモジュール側)
+            # USBシリアル(LORAモジュール側)
             self.port2 = serial.Serial(
-                port='/dev/ttyAMA0',
+                port='/dev/ttyUSB1',
                 baudrate=9600,
                 bytesize=serial.EIGHTBITS,
                 parity=serial.PARITY_NONE,
@@ -34,7 +34,7 @@ class SerialRelay:
         except Exception as e:
             print(e)
 
-    # USBシリアル->GPIOシリアル
+    # USB0->USB1
     def relay1to2(self):
         try:
             while True:
@@ -43,7 +43,7 @@ class SerialRelay:
                 self.port2.write(str)
         except Exception as e:
             print(e)
-    # GPIOシリアル->USBシリアル
+    # USB1->USB0
     def relay2to1(self):
         try:
             while True:
