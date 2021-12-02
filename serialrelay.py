@@ -8,7 +8,7 @@ import sys
 flag = False
 args = sys.argv
 print(args)
-if len(args) > 1 and args[1] == 1:
+if len(args) > 1 and args[1] == '1':
     flag = True
     
 class SerialRelay:
