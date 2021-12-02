@@ -96,6 +96,7 @@ if __name__ == '__main__':
         # コマンドで1が入力されたら定期的にSWに改行が送られる
         if flag:
             t3.start()
+        t4.start()
     except KeyboardInterrupt as ki:
         print(ki)
     finally:
