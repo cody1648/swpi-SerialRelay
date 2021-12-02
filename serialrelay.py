@@ -71,15 +71,17 @@ class SerialRelay:
             time.sleep(5)
 
     def statPort(self):
-        if self.port1.isOpen():
-            print('port1:Open')
-        else:
-            print('port1:Not open')
+        while True:
+            time.sleep(10)
+            if self.port1.isOpen():
+                print('port1:Open')
+            else:
+                print('port1:Not open')
 
-        if self.port2.isOpen():
-            print('port2:Open')
-        else:
-            print('port2:Not Open')
+            if self.port2.isOpen():
+                print('port2:Open')
+            else:
+                print('port2:Not Open')
 
 if __name__ == '__main__':
     try:
@@ -88,6 +90,7 @@ if __name__ == '__main__':
         t1 = threading.Thread(target=sr.relay1to2)
         t2 = threading.Thread(target=sr.relay2to1)
         t3 = threading.Thread(target=sr.write)
+        t4 = threading.Thread(target=sr.statPort)
         t1.start()
         t2.start()
         # コマンドで1が入力されたら定期的にSWに改行が送られる
