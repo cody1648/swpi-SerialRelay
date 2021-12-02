@@ -7,6 +7,7 @@ import sys
 # コマンドラインでフラグ指定
 flag = False
 args = sys.argv
+print(args)
 if len(args) > 1 and args[1] == 1:
     flag = True
     
