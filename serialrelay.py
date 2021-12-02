@@ -71,13 +71,21 @@ class SerialRelay:
 
 
 if __name__ == '__main__':
-    sr = SerialRelay()
-    # USB<->GPIOどちらも受信待機できるようにスレッドを用いる
-    t1 = threading.Thread(target=sr.relay1to2)
-    t2 = threading.Thread(target=sr.relay2to1)
-    t3 = threading.Thread(target=sr.write)
-    t1.start()
-    t2.start()
-    # コマンドで1が入力されたら定期的にSWに改行が送られる
-    if flag:
-        t3.start()
+    try:
+        sr = SerialRelay()
+        # USB<->GPIOどちらも受信待機できるようにスレッドを用いる
+        t1 = threading.Thread(target=sr.relay1to2)
+        t2 = threading.Thread(target=sr.relay2to1)
+        t3 = threading.Thread(target=sr.write)
+        t1.start()
+        t2.start()
+        # コマンドで1が入力されたら定期的にSWに改行が送られる
+        if flag:
+            t3.start()
+    except KeyboardInterrupt as ki:
+        print(ki)
+    finally:
+        sr.port2.write(b'end')
+        sr.port1.close()
+        sr.port2.close()
+    
