@@ -70,6 +70,16 @@ class SerialRelay:
             self.port1.write(b'\r')
             time.sleep(5)
 
+    def statPort(self):
+        if self.port1.isOpen():
+            print('port1:Open')
+        else:
+            print('port1:Not open')
+
+        if self.port2.isOpen():
+            print('port2:Open')
+        else:
+            print('port2:Not Open')
 
 if __name__ == '__main__':
     try:
@@ -87,6 +97,5 @@ if __name__ == '__main__':
         print(ki)
     finally:
         sr.port2.write(b'end')
-        sr.port1.close()
-        sr.port2.close()
     
+
