@@ -31,6 +31,9 @@ class SerialRelay:
                 stopbits=serial.STOPBITS_ONE,
                 timeout=None
             )
+            # BASICprogram実行
+            self.port2.write(b'run')
+
             # 入出力バッファクリア
             self.port1.reset_input_buffer()
             self.port1.reset_output_buffer()
