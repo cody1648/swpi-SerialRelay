@@ -34,7 +34,7 @@ def writep2():
     i = 0
     while True:
         i = i + 1
-        p2.write(i.to_bytes())
+        p2.write(bytes([i]))
         time.sleep(1)
 
 t1 = threading.Thread(target=readp1)
