@@ -36,9 +36,9 @@ def writep2():
         i = i + 1
         _str = str(i)
         p2.write(_str.encode() + b'\r\n')
-        # p2.readline()
-        # if b'*ok\r\n' != p2.readline():
-        #     print('cannot receive data correctly')
+        p2.readline()
+        if b'*ok\r\n' != p2.readline():
+            print('cannot receive data correctly')
         time.sleep(1)
 
 t1 = threading.Thread(target=readp1)
