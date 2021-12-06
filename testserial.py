@@ -30,6 +30,13 @@ def readp2():
         str = p2.readline()
         print(f'2:{str}')
 
+def writep2():
+    i = 0
+    while True:
+        i = i + 1
+        p2.write(i.to_bytes())
+        time.sleep(1)
+
 t1 = threading.Thread(target=readp1)
 t2 = threading.Thread(target=readp2)
 
