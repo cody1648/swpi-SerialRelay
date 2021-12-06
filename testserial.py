@@ -39,6 +39,7 @@ def writep2():
 
 t1 = threading.Thread(target=readp1)
 t2 = threading.Thread(target=readp2)
-
+t3 = threading.Thread(target=writep2)
 t1.start()
 t2.start()
+t3.start()
