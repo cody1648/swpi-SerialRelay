@@ -3,6 +3,8 @@ import threading
 import serial
 import time
 
+threadlock = threading.Lock()
+
 p1 = serial.Serial(
                 port='/dev/ttyUSB0',
                 baudrate=9600,
@@ -35,10 +37,11 @@ def writep2():
     while True:
         i = i + 1
         _str = str(i)
-        p2.write(_str.encode() + b'\r\n')
-        p2.readline()
-        if b'*ok\r\n' != p2.readline():
-            print('cannot receive data correctly')
+        with threadlock:
+            p2.write(_str.encode() + b'\r\n')
+            p2.readline()
+            if b'*ok\r\n' != p2.readline():
+                print('cannot receive data correctly')
         time.sleep(1)
 
 t1 = threading.Thread(target=readp1)
