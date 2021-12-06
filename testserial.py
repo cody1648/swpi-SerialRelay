@@ -14,7 +14,7 @@ p1 = serial.Serial(
 
 p2 = serial.Serial(
                 port='/dev/ttyUSB1',
-                baudrate=9600,
+                baudrate=115200,
                 bytesize=serial.EIGHTBITS,
                 parity=serial.PARITY_NONE,
                 stopbits=serial.STOPBITS_ONE,
