@@ -23,11 +23,11 @@ p2 = serial.Serial(
 
 def readp1():
     while True:
-        str = p1.readline()
+        str = p1.readline().decode()
         print(f'1:{str}')
 def readp2():
     while True:
-        str = p2.readline()
+        str = p2.readline().decode()
         print(f'2:{str}')
 
 def writep2():
