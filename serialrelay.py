@@ -22,7 +22,7 @@ class SerialRelay:
     def __init__(self):
         try:
             # USBシリアル(SW側)
-            self.port1 = serial.Serial(
+            self.port0 = serial.Serial(
                 port='/dev/ttyUSB0',
                 baudrate=9600,#本当は115200にしたいが、SWの設定が保持できない問題がある
                 bytesize=serial.EIGHTBITS,
@@ -31,7 +31,7 @@ class SerialRelay:
                 timeout=None
             )
             # USBシリアル(LORAモジュール側)
-            self.port2 = serial.Serial(
+            self.port1 = serial.Serial(
                 port='/dev/ttyUSB1',
                 baudrate=115200,
                 bytesize=serial.EIGHTBITS,
@@ -40,63 +40,65 @@ class SerialRelay:
                 timeout=None
             )
             # BASICprogram実行
-            self.port2.write(b'run\r\n')
+            self.port1.write(b'run\r\n')
 
             # 入出力バッファクリア
+            self.port0.reset_input_buffer()
+            self.port0.reset_output_buffer()
             self.port1.reset_input_buffer()
             self.port1.reset_output_buffer()
-            self.port2.reset_input_buffer()
-            self.port2.reset_output_buffer()
             time.sleep(1)
 
         except Exception as e:
             print(e)
 
     # USB0->USB1
-    def relay1to2(self):
+    def relay0to1(self):
         try:
             while True:
-                str = self.port1.readline()
+                str = self.port0.readline()
                 print('1->2:' + str.decode())
                 threadlock.acquire()
-                self.port2.write(str)
-                self.port2.readline()
-                if b'*ok\r\n' != (_str := self.port2.readline()):
+                self.port1.write(str)
+                self.port1.readline()
+                if b'*ok\r\n' != (_str := self.port1.readline()):
                     print('cannot receive data correctly')
                     print(_str)
+                else:
+                    print("ok:" + _str)
 
                 threadlock.release()
         except Exception as e:
             print(e)
 
     # USB1->USB0
-    def relay2to1(self):
+    def relay1to0(self):
         try:
             while True:
-                str = self.port2.readline()
+                str = self.port1.readline()
                 print('2->1:'+ str.decode())
-                self.port1.write(str+b'\r')
+                self.port0.write(str+b'\r')
         except Exception as e:
             print(e)
 
 
     def write(self):
         while True:
-            self.port1.write(b'\r')
+            self.port0.write(b'\r')
             time.sleep(5)
 
     def statPort(self):
         while True:
             time.sleep(10)
+            if self.port0.isOpen():
+                print('port0:Open')
+            else:
+                print('port0:Not open')
+
             if self.port1.isOpen():
                 print('port1:Open')
             else:
-                print('port1:Not open')
-
-            if self.port2.isOpen():
-                print('port2:Open')
-            else:
-                print('port2:Not Open')
+                print('port1:Not Open')
 
 if __name__ == '__main__':
     try:
@@ -115,6 +117,6 @@ if __name__ == '__main__':
     except KeyboardInterrupt as ki:
         print(ki)
     finally:
-        sr.port2.write(b'end')
+        sr.port1.write(b'end')
     
 
