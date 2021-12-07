@@ -66,7 +66,7 @@ class SerialRelay:
                     print('cannot receive data correctly')
                     print(str2)
                 else:
-                    print("str2: " + str2)
+                    print("str2: " + str2.decode())
                 threadlock.release()
         except Exception as e:
             print(e)
