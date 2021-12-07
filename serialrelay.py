@@ -104,8 +104,8 @@ if __name__ == '__main__':
     try:
         sr = SerialRelay()
         # USB<->GPIOどちらも受信待機できるようにスレッドを用いる
-        t1 = threading.Thread(target=sr.relay1to2)
-        t2 = threading.Thread(target=sr.relay2to1)
+        t1 = threading.Thread(target=sr.relay0to1)
+        t2 = threading.Thread(target=sr.relay1to0)
         t3 = threading.Thread(target=sr.write)
         t4 = threading.Thread(target=sr.statPort)
         t1.start()
