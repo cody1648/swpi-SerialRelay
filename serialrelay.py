@@ -82,10 +82,10 @@ class SerialRelay:
             print(e)
 
 
-    def write(self):
-        while True:
-            self.port0.write(b'\r')
-            time.sleep(5)
+    # def write(self):
+    #     while True:
+    #         self.port0.write(b'\r')
+    #         time.sleep(5)
 
     def statPort(self):
         while True:
@@ -106,13 +106,13 @@ if __name__ == '__main__':
         # USB<->GPIOどちらも受信待機できるようにスレッドを用いる
         t1 = threading.Thread(target=sr.relay0to1)
         t2 = threading.Thread(target=sr.relay1to0)
-        t3 = threading.Thread(target=sr.write)
+        # t3 = threading.Thread(target=sr.write)
         t4 = threading.Thread(target=sr.statPort)
         t1.start()
         t2.start()
         # コマンドで1が入力されたら定期的にSWに改行が送られる
-        if flag:
-            t3.start()
+        # if flag:
+        #     t3.start()
         t4.start()
     except KeyboardInterrupt as ki:
         print(ki)
