@@ -57,7 +57,7 @@ class SerialRelay:
         try:
             while True:
                 str = self.port0.readline()
-                print('1->2:' + str.decode())
+                print('0->1:' + str.decode())
                 threadlock.acquire()
                 self.port1.write(str)
                 str1 = self.port1.readline().decode()
@@ -76,8 +76,8 @@ class SerialRelay:
         try:
             while True:
                 str = self.port1.readline()
-                print('2->1:'+ str.decode())
-                self.port0.write(str+b'\r')
+                print('1->0:'+ str.decode())
+                self.port0.write(str+b'\r\n')
         except Exception as e:
             print(e)
 
