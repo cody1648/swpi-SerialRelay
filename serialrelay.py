@@ -1,3 +1,8 @@
+"""
+SW<--serial(1)-->raspberry pi<--LoRa(2)-->PC
+本プログラムは、(1)の中継を行うためのプログラム
+(2)はLRA-1評価ボードで動作するBASICプログラムが中継する(COMMコマンドを利用する予定)
+"""
 # coding: UTF-8
 import serial
 import threading
@@ -17,7 +22,7 @@ class SerialRelay:
             # USBシリアル(SW側)
             self.port1 = serial.Serial(
                 port='/dev/ttyUSB0',
-                baudrate=9600,
+                baudrate=9600,#本当は115200にしたいが、SWの設定が保持できない問題がある
                 bytesize=serial.EIGHTBITS,
                 parity=serial.PARITY_NONE,
                 stopbits=serial.STOPBITS_ONE,
@@ -33,7 +38,7 @@ class SerialRelay:
                 timeout=None
             )
             # BASICprogram実行
-            self.port2.write(b'run')
+            self.port2.write(b'run\r\n')
 
             # 入出力バッファクリア
             self.port1.reset_input_buffer()
@@ -52,6 +57,7 @@ class SerialRelay:
                 str = self.port1.readline()
                 print('1->2:' + str.decode())
                 self.port2.write(str)
+
         except Exception as e:
             print(e)
     # USB1->USB0
