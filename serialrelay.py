@@ -60,8 +60,8 @@ class SerialRelay:
                 print('0->1:' + str.decode())
                 threadlock.acquire()
                 self.port1.write(str)
-                str1 = self.port1.readline().decode()
-                print("str1: " + str1)
+                # str1 = self.port1.readline().decode()
+                # print("str1: " + str1)
                 # if b'*ok\r\n' != (str2 := self.port1.readline()):
                 #     print('cannot receive data correctly')
                 #     print(str2)
