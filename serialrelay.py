@@ -15,6 +15,8 @@ args = sys.argv
 print(args)
 if len(args) > 1 and args[1] == '1':
     flag = True
+
+threadlock = threading.Lock()
     
 class SerialRelay:
     def __init__(self):
@@ -56,10 +58,17 @@ class SerialRelay:
             while True:
                 str = self.port1.readline()
                 print('1->2:' + str.decode())
+                threadlock.acquire()
                 self.port2.write(str)
+                self.port2.readline()
+                if b'*ok\r\n' != (_str := self.port2.readline()):
+                    print('cannot receive data correctly')
+                    print(_str)
 
+                threadlock.release()
         except Exception as e:
             print(e)
+
     # USB1->USB0
     def relay2to1(self):
         try:
