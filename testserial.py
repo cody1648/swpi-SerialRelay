@@ -38,6 +38,7 @@ def writep2():
         i = i + 1
         _str = str(i)
         # threadlock.acquire()
+        print(_str)
         p2.write(_str.encode())
         # p2.readline()
         # if b'*ok\r\n' != p2.readline():
