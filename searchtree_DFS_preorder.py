@@ -8,7 +8,6 @@ import time
 import re
 from anytree import *
 from anytree.exporter import JsonExporter
-from serial.win32 import _SECURITY_ATTRIBUTES
 
 class SearchTreeDFSPreorder:
     def __init__(self):
