@@ -1,3 +1,6 @@
+"""
+Command Tree探索プログラム
+"""
 # coding: UTF-8
 from anytree import exporter
 import serial
@@ -5,6 +8,7 @@ import time
 import re
 from anytree import *
 from anytree.exporter import JsonExporter
+from serial.win32 import _SECURITY_ATTRIBUTES
 
 class SearchTreeDFSPreorder:
     def __init__(self):
@@ -25,8 +29,12 @@ class SearchTreeDFSPreorder:
         startTime = time.time()
         try:
             # シリアル開通
-            COM = "COM4"
+            COM = "/dev/ttyUSB0"
             bitrate = 115200
+
+            with serial.Serial(COM, 9600, timeout = 0.1) as ser:
+                ser.write(b'term speed 115200\r')
+            
             ser = serial.Serial(COM, bitrate, timeout = 0.1)
             ser.set_buffer_size(rx_size = 100000, tx_size = 100000)
 
@@ -72,7 +80,7 @@ class SearchTreeDFSPreorder:
         if vName == '<cr>':
             return
         # 正規表現指定は無限ループするため探索をしない（暫定措置2021年11月23日）
-        if vName == 'begin' or vName == 'count'or vName == 'exclude' or vName == 'include':
+        if vName == 'begin' or vName == 'count' or vName == 'exclude' or vName == 'include':
             return
         # cryptoのEncryption指定でループするので打ち切る（暫定措置2021年11月23日）
         if vName == 'passphrase':
@@ -105,7 +113,7 @@ class SearchTreeDFSPreorder:
         for i, cmd in enumerate(parentCmd):
             # 数字指定の処理
             if re.match(r'<\d+-\d+>', cmd):
-                # 範囲の頭の数字を代表させて入力する                                      
+                # 範囲の頭の数字を代表させて入力する
                 ser.write(re.search(r'\d+', cmd).group().encode() + b' ')
             else:
                 ser.write(cmd.encode() + b' ')
@@ -127,7 +135,9 @@ class SearchTreeDFSPreorder:
         ser.write(b'?')
         time.sleep(0.25)
         _str = ser.read_all().decode('utf-8')
-        _str = re.sub(r'.*Exec commands:\r\n',r'',_str, flags=(re.MULTILINE|re.DOTALL))
+        _str = re.sub(
+            r'.*Exec commands:\r\n',r'',_str,
+            flags=(re.MULTILINE|re.DOTALL))
         # itijitekisyori
         if flags == 1:
             print(_str)
