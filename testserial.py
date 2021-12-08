@@ -39,7 +39,7 @@ def writep2():
         _str = str(i)
         # threadlock.acquire()
         print(_str)
-        p2.write(_str.encode())
+        p2.write(_str.encode() + b'\r\n')
         # p2.readline()
         # if b'*ok\r\n' != p2.readline():
         #     print('cannot receive data correctly')
