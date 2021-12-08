@@ -38,8 +38,9 @@ def writep1():
     time.sleep(5)
     i = 0
     while True:
-        i = i + 1
-        _str = str(i)
+        # i = i + 1
+        # _str = str(i)
+        _str = 'show arp'
         # threadlock.acquire()
         print("sendtoSW:" + _str)
         p1.write(_str.encode())
