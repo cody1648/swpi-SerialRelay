@@ -64,15 +64,15 @@ def writep2():
         # threadlock.release()
         time.sleep(5)
 
-def statPort(self):
+def statPort():
     while True:
         time.sleep(10)
-        if self.port0.isOpen():
+        if p1.isOpen():
             print('port0:Open')
         else:
             print('port0:Not open')
 
-        if self.port1.isOpen():
+        if p2.isOpen():
             print('port1:Open')
         else:
             print('port1:Not Open')
