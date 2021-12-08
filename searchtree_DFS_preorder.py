@@ -35,7 +35,7 @@ class SearchTreeDFSPreorder:
                 ser.write(b'term speed 115200\r')
             
             ser = serial.Serial(COM, bitrate, timeout = 0.1)
-            ser.set_buffer_size(rx_size = 100000, tx_size = 100000)
+            # ser.set_buffer_size(rx_size = 100000, tx_size = 100000)
 
             ser.write(b'\r')
             ser.write(b'terminal length 0\r')
