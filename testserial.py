@@ -37,16 +37,17 @@ def writep2():
     while True:
         i = i + 1
         _str = str(i)
-        with threadlock:
-            p2.write(_str.encode() + b'\r\n')
-            p2.readline()
-            if b'*ok\r\n' != p2.readline():
-                print('cannot receive data correctly')
-        time.sleep(1)
+        # threadlock.acquire()
+        p2.write(_str.encode())
+        # p2.readline()
+        # if b'*ok\r\n' != p2.readline():
+        #     print('cannot receive data correctly')
+        # threadlock.release()
+        time.sleep(10)
 
-t1 = threading.Thread(target=readp1)
+# t1 = threading.Thread(target=readp1)
 t2 = threading.Thread(target=readp2)
 t3 = threading.Thread(target=writep2)
-t1.start()
+# t1.start()
 t2.start()
 t3.start()
