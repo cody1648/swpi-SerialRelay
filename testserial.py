@@ -45,14 +45,14 @@ def writep1():
         # i = i + 1
         # _str = str(i)
         _str = 'show arp'
-        # threadlock.acquire()
+        threadlock.acquire()
         print("sendtoSW:" + _str)
         p1.write(_str.encode())
         p1.write(b'\r')
         # p1.readline()
         # if b'*ok\r\n' != p1.readline():
         #     print('cannot receive data correctly')
-        # threadlock.release()
+        threadlock.release()
         time.sleep(5)    
 
 def writep2():
