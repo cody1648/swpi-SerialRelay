@@ -66,7 +66,7 @@ def writep2():
 if __name__ == '__main__':
     t1 = threading.Thread(target=readp1)
     t2 = threading.Thread(target=readp2)
-    t3 = threading.Thread(target=writep2)
+    t3 = threading.Thread(target=writep1)
     t4 = threading.Thread(target=writep2)
     t1.start()
     t2.start()
