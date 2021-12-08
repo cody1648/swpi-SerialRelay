@@ -34,7 +34,7 @@ def readp2():
         print(f'2:{str}')
 
 def writep1():
-    p1.write(b'\r\n')
+    p1.write(b'\r')
     time.sleep(5)
     i = 0
     while True:
