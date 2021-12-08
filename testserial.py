@@ -42,7 +42,8 @@ def writep1():
         _str = str(i)
         # threadlock.acquire()
         print("sendtoSW:" + _str)
-        p1.write(_str.encode() + b'\r')
+        p1.write(_str.encode())
+        p1.write(b'\r')
         # p1.readline()
         # if b'*ok\r\n' != p1.readline():
         #     print('cannot receive data correctly')
