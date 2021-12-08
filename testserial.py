@@ -22,6 +22,10 @@ p2 = serial.Serial(
                 stopbits=serial.STOPBITS_ONE,
                 timeout=None
             )
+p1.reset_input_buffer()
+p1.reset_output_buffer()
+p2.reset_input_buffer()
+p2.reset_output_buffer()
 
 def readp1():
     while True:
