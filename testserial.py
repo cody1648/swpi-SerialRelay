@@ -29,8 +29,12 @@ p2.reset_output_buffer()
 
 def readp1():
     while True:
+        threadlock.acquire()
         str = p1.readline()
         print(f'1:{repr(str.decode())}')
+        p2.write(str)
+        p2.read_until(b'*ok\r\n')
+        threadlock.release()
 
 def readp2():
     while True:
@@ -53,7 +57,7 @@ def writep1():
         # if b'*ok\r\n' != p1.readline():
         #     print('cannot receive data correctly')
         threadlock.release()
-        time.sleep(5)    
+        time.sleep(30)    
 
 def writep2():
     time.sleep(5)
@@ -93,5 +97,5 @@ if __name__ == '__main__':
     t1.start()
     t2.start()
     t3.start()
-    t4.start()
-    t5.start()
+    # t4.start()
+    # t5.start()
