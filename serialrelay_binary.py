@@ -4,7 +4,7 @@ import serial
 import time
 import argparse
 import sys
-from serialmodules import *
+# from serialmodules import *
 from coding_module.adaptive_commandtree import adaptive_commandtree as ac
 from bitarray import bitarray
 from anytree import *
@@ -63,10 +63,10 @@ p2.write(b'Cr=' + LRAcr.encode() + b'\r\n')
 LRAch = args['ch'] if args['ch'] in args else '36' 
 p2.write(b'Ch=' + LRAch.encode() + b'\r\n')
 
-LRAmaxByte = getMaxByte_lower(int(LRAsf), int(LRAbw), int(LRAcr)) 
-if not isValidStat_lower(int(LRAsf),int(LRAbw),int(LRAcr)):
-    sys.exit(1)
-print('LRAmaxByte:'+str(LRAmaxByte))
+# LRAmaxByte = getMaxByte_lower(int(LRAsf), int(LRAbw), int(LRAcr)) 
+# if not isValidStat_lower(int(LRAsf),int(LRAbw),int(LRAcr)):
+#     sys.exit(1)
+# print('LRAmaxByte:'+str(LRAmaxByte))
 
 # 16進数を用いるオプション指定
 p2.write(b'comm $\r\n')
