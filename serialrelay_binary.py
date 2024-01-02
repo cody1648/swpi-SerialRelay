@@ -88,7 +88,7 @@ def serialSW():
             if _str != b'\r\n':
                 flag = False
             # print(_str.decode())
-            response = (adaptive_command_tree.encode("__RES " + _str.decode()).tobytes().hex() + '\r\n').encode()
+            response = (adaptive_command_tree.encode(_str.decode(), True).tobytes().hex() + '\r\n').encode()
             # adaptive_command_tree.updateCommandModel()            
             print(f'fromSW:{repr(_str.decode())}' + f'({len(_str)})')#for debug
             # if len(response) > LRAmaxByte:
@@ -116,10 +116,7 @@ def serialLRA():
             print(RenderTree(adaptive_command_tree.root))
             _str = _str.split(',')[-1].rstrip()
             tmp_bitarray = bitarray()
-            if _str == '80':
-                tmp_bitarray.frombytes(bytes.fromhex('80'))
-            else:
-                tmp_bitarray.frombytes(bytes.fromhex(_str))
+            tmp_bitarray.frombytes(bytes.fromhex(_str))
             print(tmp_bitarray)
             cmd = adaptive_command_tree.decode(tmp_bitarray)
 
